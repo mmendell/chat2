@@ -48,17 +48,20 @@
     const getAuthURL = "https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url";
 
 
-    getCodeElement.onclick = function () {
+    getCodeElement.onclick = function ()
+    {
       fetch(getAuthURL)
-      .then(function (response) {
-         return response.json();
-      })
-      .then(function (json) {
-        const result = JSON.stringify(json);
-        const { authURL } = JSON.parse(result);
-        resultElement.innerText = result;
-        resultLink.href = authUrl;
-      });
+        .then(function (response)
+        {
+          return response.json();
+        })
+        .then(function (json)
+        {
+          const result = JSON.stringify(json);
+          const { authUrl } = JSON.parse(result);
+          resultElement.innerText = result;
+          resultLink.href = authUrl;
+        });
     };
 
     // ----------------step 2
@@ -67,20 +70,26 @@
     const accessTokenElement = document.getElementById("accessToken");
     const getToken = "https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/token";
 
-    getAccessToken.onclick = function () {
+
+    getAccessToken.onclick = function ()
+    {
       let code = codeValue.value;
 
-      if (decodeURIComponent(code) === code) {
-        code = encodeURIComponent(codeValue.value)
+      // if the authorization code is not URL-encoded, then URL-encode it.
+      if (decodeURIComponent(code) === code)
+      {
+        code = encodeURIComponent(codeValue.value);
       }
       const getTokenRequest = getToken + "/" + code;
       fetch(getTokenRequest)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (json) {
-        accessTokenElement.innerText = JSON.stringify(json);
-      });
+        .then(function (response)
+        {
+          return response.json();
+        })
+        .then(function (json)
+        {
+          accessTokenElement.innerText = JSON.stringify(json);
+        });
     };
   </script>
 </body>
