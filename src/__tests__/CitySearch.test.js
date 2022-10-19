@@ -57,10 +57,10 @@ describe("<CitySearch /> componenet", () => {
 
   test('selecting a suggestion should change the query state', () => {
     CitySearchWrapper.setState({
-      query: "boston"
+      query: 'berlin'
     });
     const suggestions = CitySearchWrapper.state('suggestions');
     CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
-    expect(CitySearchWrapper.state("query")).toBe(suggestions[0]);
+    expect(CitySearchWrapper.state("query")).toBe(suggestions[1]);
   });
 });
