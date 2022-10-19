@@ -3,6 +3,8 @@ import { shallow } from "enzyme";
 import App from "../App";
 import EventList from '../EventList';
 import CitySearch from  '../CitySearch';
+import numberOfEvents from '../numberOfEvents';
+import { extractLocations } from "../api";
 
 describe('<App /> component', () => {
   let AppWrapper;
