@@ -6,7 +6,7 @@ class NumberOfEvents extends Component {
     textWarning: '',
   };
 
-  handleInputChange = () => {
+  handleInputChange = (event) => {
     const value = event.target.value;
     const warning = value < 1 ? 'please enter a number greater then 1' : 0;
     this.setState({
