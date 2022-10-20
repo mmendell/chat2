@@ -4,10 +4,12 @@ class CitySearch extends Component {
   state = {
     query: "",
     suggestions: [],
+    showSuggestions: undefined,
   };
 
   handleInputChanged = (event) => {
     const value = event.target.value;
+    this.setState({ showSuggestions: true });
     const suggestions = this.props.locations.filter((location) => {
       return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
     });
@@ -19,9 +21,12 @@ class CitySearch extends Component {
 
   handleItemChanged = (suggestion) => {
     this.setState({
-      query: suggestion
+      query: suggestion,
+      showSuggestions: false,
     });
-  }
+
+    this.props.updateEvents(suggestion);
+  };
 
   render() {
     return (
@@ -31,14 +36,23 @@ class CitySearch extends Component {
           className="city"
           value={this.state.query}
           onChange={this.handleInputChanged}
+          onFocus={() => {
+            this.setState({ showSuggestions: true });
+          }}
         />
-        <ul className="suggestions">
-          {this.state.suggestions?.map((suggestion) => (
-            <li key={suggestion}
-            onClick={() => this.handleItemChanged(suggestion)}
-            >{suggestion}</li>
+        <ul
+          className="suggestions"
+          style={this.state.showSuggestions ? {} : { display: "none" }}
+        >
+          {this.state.suggestions.map((suggestion) => (
+            <li
+              key={suggestion}
+              onClick={() => this.handleItemChanged(suggestion)}
+            >
+              {suggestion}
+            </li>
           ))}
-          <li key="all">
+          <li onClick={() => this.handleItemChanged('all')}>
             <b>see all</b>
           </li>
         </ul>
@@ -46,4 +60,5 @@ class CitySearch extends Component {
     );
   }
 }
+
 export default CitySearch;
