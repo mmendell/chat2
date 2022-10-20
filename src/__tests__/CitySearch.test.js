@@ -8,7 +8,7 @@ describe("<CitySearch /> componenet", () => {
   let locations, CitySearchWrapper;
   beforeAll(() => {
     locations = extractLocations(mockData);
-    CitySearchWrapper = shallow(<CitySearch locations={locations} />);
+    CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}} />);
   });
 
   test("render city input", () => {
@@ -76,5 +76,14 @@ describe("<CitySearch /> componenet", () => {
     });
   });
 
+  test('selecting a suggestion should hide the list', () => {
+    CitySearchWrapper.setState({
+      query: 'berlin',
+      showSuggestions: undefined,
+    });
+    CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+    expect(CitySearchWrapper.state('showSuggestions')).toBe(false);
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({display: 'none'});
+  });
   
 });
