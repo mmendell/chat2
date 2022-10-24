@@ -1,5 +1,6 @@
-import { mockData } from "./mock-data";
 import axios from "axios";
+
+import { mockData } from "./mock-data";
 import NProgress from 'nprogress';
 
 export const extractLocations = (events) => {
@@ -46,7 +47,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const { access_token } = await fetch(
-    'https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/token' + '/' + encodeCode
+    'https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/token/'  + encodeCode
 
   )
   .then((res) => {
@@ -66,6 +67,8 @@ const checkToken = async (accessToken) => {
   )
     .then((res) => res.json())
     .catch((error) => error.json());
+
+    return result;
 };
 
 export const getEvents = async () => {
