@@ -1,5 +1,4 @@
-import { render } from 'nprogress';
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Alert extends Component {
   constructor(props) {
@@ -11,11 +10,11 @@ class Alert extends Component {
     return {
       color: this.color,
     };
-  }
+  };
 
-  render(){
-    return(
-      <div className='Alert'>
+  render() {
+    return (
+      <div className="Alert">
         <p style={this.getStyle()}>{this.props.text}</p>
       </div>
     );
@@ -25,6 +24,15 @@ class Alert extends Component {
 class InfoAlert extends Alert {
   constructor(props) {
     super(props);
-    this.color = 'blue';
+    this.color = "blue";
   }
 }
+
+class ErroAlert extends Alert {
+  constructor(props){
+    super(props);
+    this.color = 'red';
+  }
+}
+
+export { InfoAlert, ErroAlert };

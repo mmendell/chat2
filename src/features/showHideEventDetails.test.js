@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
 import { loadFeature, defineFeature } from "jest-cucumber";
-import { Puppeteer } from "puppeteer";
+import puppeteer  from "puppeteer";
 import App from "../App";
 
 const feature = loadFeature("./src/features/showHideEventDetails.feature");
@@ -8,7 +8,7 @@ const feature = loadFeature("./src/features/showHideEventDetails.feature");
 defineFeature(feature, (test) => {
   let AppWrapper;
 
-  test("elements are collapsed by default", (async) => {
+  test("elements are collapsed by default", ({given, when , then }) => {
     given("event element on page is collapsed", () => {});
 
     when("user opens up app", () => {
