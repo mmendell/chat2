@@ -8,6 +8,7 @@ import { loadFeature, defineFeature } from "jest-cucumber";
 const feature = loadFeature("./src/features/filterEventsByCIty.feature");
 
 defineFeature(feature, (test) => {
+  
   test("When user hasn’t searched for a city, show upcoming events from all cities.", ({
     given,
     when,
