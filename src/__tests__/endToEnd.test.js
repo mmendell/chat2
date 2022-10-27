@@ -35,16 +35,18 @@ describe("show/hide event details", () => {
     await page.goto("http://localhost:3000/");
 
     await page.waitForSelector(".event");
-    await page.click(".event .btn-toggle-details");
+    await page.click(".show-details");
 
-    const eventDetails = await page.$(".event .event__Details");
+    const eventDetails = await page.$(".event .details");
     expect(eventDetails).toBeDefined();
     browser.close();
   });
 
   test("User can collapse an event to hide its details", async () => {
-    await page.click(".event .btn-toggle-details");
-    const eventDetails = await page.$(".event .event__Details");
+    await page.waitForSelector(".event");
+    await page.click(".show-details");
+    await page.click(".hide-details");
+    const eventDetails = await page.$(".details");
     expect(eventDetails).toBeNull();
   });
 });
