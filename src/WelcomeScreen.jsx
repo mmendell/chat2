@@ -1,5 +1,5 @@
 import React from "react";
-import './WelcomeScreem.css';
+import './WelcomeScreen.css';
 
   function WelcomeScreen(props)
   {
