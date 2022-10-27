@@ -44,33 +44,6 @@ const removeQuery = () => {
   }
 };
 
-const getToken = async (code) => {
-  const encodeCode = encodeURIComponent(code);
-  const { access_token } = await fetch(
-    'https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/token/'  + encodeCode
-
-  )
-  .then((res) => {
-    return res.json();
-  })
-  .catch((error) => error);
-
-  access_token && localStorage.setItem('access_token', access_token);
-
-  return access_token
-};
-
-
-const checkToken = async (accessToken) => {
-  const result = await fetch(
-    `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
-  )
-    .then((res) => res.json())
-    .catch((error) => error.json());
-
-    return result;
-};
-
 export const getEvents = async () => {
   NProgress.start();
 
@@ -100,3 +73,61 @@ export const getEvents = async () => {
     return result.data.events;
   }
 };
+
+
+const getToken = async (code) => {
+  const encodeCode = encodeURIComponent(code);
+  const { access_token } = await fetch(
+    'https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/token/'  + encodeCode
+
+  )
+  .then((res) => {
+    return res.json();
+  })
+  .catch((error) => error);
+
+  access_token && localStorage.setItem('access_token', access_token);
+
+  return access_token
+};
+
+
+const checkToken = async (accessToken) => {
+  const result = await fetch(
+    `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
+  )
+    .then((res) => res.json())
+    .catch((error) => error.json());
+
+    return result;
+};
+
+// export const getEvents = async () => {
+//   NProgress.start();
+
+//   if (window.location.href.startsWith("http://localhost")) {
+//     NProgress.done();
+//     return mockData;
+//   }
+
+//   if (!navigator.onLine) {
+//     const data = localStorage.getItem("lastEvents");
+//     NProgress.done();
+//     return data?JSON.parse(events).events:[];;
+//   }
+
+//   const token = await getAccessToken();
+
+//   if (token) {
+//     removeQuery();
+//     const url = 'https://fktv6ho9r7.execute-api.us-east-1.amazonaws.com/dev/api/get-events/' + token;
+//     const result = await axios.get(url);
+//     if (result.data) {
+//       var locations = extractLocations(result.data.events);
+//       localStorage.setItem('lastEvents', JSON.stringify(result.data));
+//       localStorage.setItem('locations', JSON.stringify(locations));
+//     }
+//     NProgress.done();
+//     return result.data.events;
+//   }
+// };
