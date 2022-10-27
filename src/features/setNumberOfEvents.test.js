@@ -1,13 +1,17 @@
 import { loadFeature, defineFeature } from "jest-cucumber";
-import App from "../App";
+import React from "react";
 import { mount } from "enzyme";
-import EventList from "../EventList";
+import App from "../App";
 
 const feature = loadFeature("./src/features/setNumberOfEvents.feature");
 
 defineFeature(feature, (test) => {
   let AppWrapper;
-  test("32 is the default number.", ({ given, when, then }) => {
+  test("When user has not specified a number, 32 is the default number.", ({
+    given,
+    when,
+    then,
+  }) => {
     given("The app has loaded", () => {});
 
     when(
@@ -17,9 +21,9 @@ defineFeature(feature, (test) => {
       }
     );
 
-    then("A default number of events is loaded on the page.", () => {
+    then("A default number of 32 events is loaded on the page.", () => {
       AppWrapper.update();
-      expect(AppWrapper.state("events")).toEqual(32);
+      expect(AppWrapper.state("numberOfEvents")).toEqual(32);
     });
   });
 
@@ -31,6 +35,7 @@ defineFeature(feature, (test) => {
     given("The app has loaded.", async () => {
       AppWrapper = await mount(<App />);
     });
+
     when("User changes the number of events in the input box.", () => {
       AppWrapper.update();
       let NumberOfEventsWrapper = AppWrapper.find("NumberOfEvents");
@@ -44,7 +49,7 @@ defineFeature(feature, (test) => {
     then(
       "The event list elements shows the number of events set by the user.",
       () => {
-        expect(AppWrapper.find(EventList)).toHaveLength(32);
+        expect(AppWrapper.find(".EventList")).toHaveLength(1);
       }
     );
   });
