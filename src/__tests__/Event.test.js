@@ -8,9 +8,11 @@ import { mockData } from '../mock-data';
 
 
 describe('<Event /> component', () => {
-  let EventWrapper;
+  let event, EventWrapper;
 
   beforeAll(() => {
+    event = mockData[0];
+    
     EventWrapper = shallow(<Event event={ mockData[0] } />);
   });
 

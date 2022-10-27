@@ -3,9 +3,9 @@ import { shallow, mount } from "enzyme";
 import App from "../App";
 import EventList from '../EventList';
 import CitySearch from  '../CitySearch';
+import NumberOfEvents from "../numberOfEvents";
 import { mockData } from '../mock-data';
 import { extractLocations, getEvents } from "../api";
-import { click } from "@testing-library/user-event/dist/click";
 
 
 describe('<App /> component', () => {
@@ -24,6 +24,10 @@ describe('<App /> component', () => {
     const AppWrapper = shallow(<App />);
     expect(AppWrapper.find(CitySearch)).toHaveLength(1);
   });
+
+  test('render numberOfEvent', () => {
+    expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
+  })
 
 });
 

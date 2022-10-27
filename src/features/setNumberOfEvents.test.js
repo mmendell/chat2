@@ -2,11 +2,12 @@ import { loadFeature, defineFeature } from "jest-cucumber";
 import App from "../App";
 import { mount } from "enzyme";
 import EventList from "../EventList";
+
 const feature = loadFeature("./src/features/setNumberOfEvents.feature");
 
 defineFeature(feature, (test) => {
   let AppWrapper;
-  test(" 32 is the default number.", ({ given, when, then }) => {
+  test("32 is the default number.", ({ given, when, then }) => {
     given("The app has loaded", () => {});
 
     when(
@@ -44,6 +45,7 @@ defineFeature(feature, (test) => {
       "The event list elements shows the number of events set by the user.",
       () => {
         expect(AppWrapper.find(EventList)).toHaveLength(32);
-      });
+      }
+    );
   });
 });
