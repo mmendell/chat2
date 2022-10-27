@@ -1,5 +1,5 @@
 import React from "react";
-import
+import './WelcomeScreem.css';
 
   function WelcomeScreen(props)
   {
@@ -19,13 +19,22 @@ import
                 alt="Google sign-in"
               />
             </div>
-            <button onClick={() => {props.getAccessToken}}
+            <button onClick={() => {props.getAccessToken()}}
             rel="nofollow noopener"
             class="btn-txt">
             <b>Sign in with Google</b>
             </button>
           </div>
-        </div>
-        <a
-      )
+       
+        <a href="https://mmendell.github.io/chat2/privacy.html"
+        rel="nofollow noopener"
+        >
+        Privacy policy
+        </a>
+      </div>
+        )
+        :
+        null
 }
+
+export default WelcomeScreen;
