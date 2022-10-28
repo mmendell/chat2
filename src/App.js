@@ -7,6 +7,17 @@ import "./nprogress.css";
 import NumberOfEvents from "./numberOfEvents";
 import { Offline } from "./Alert";
 import WelcomeScreen from "./WelcomeScreen";
+import {
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+
+} from "recharts";
+import EventGenre from "./EventGenre";
 
 class App extends Component {
   state = {
@@ -15,6 +26,20 @@ class App extends Component {
     numberOfEvents: 32,
     locationSelected: "all",
     showWelcomeScreen: undefined,
+    offlineText: "",
+    
+  };
+
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter(
+        (event) => event.location === location
+      ).length;
+      const city = location.split(", ").shift();
+      return { city, number };
+    });
+    return data;
   };
 
   updateEvents = (location, maxNumEvents) => {
@@ -57,10 +82,6 @@ class App extends Component {
         warningText:
           "It seems that you're not connected to the internet, your data was loaded from the cache.",
       });
-    } else {
-      this.setState({
-        warningText: "",
-      });
     }
   }
 
@@ -85,8 +106,25 @@ class App extends Component {
           numberOfEvents={this.state.events}
           updateEvents={this.updateEvents}
         />
-        <EventList events={this.state.events} />
 
+        <div className="data-vis-wrapper">
+          <EventGenre events={events} />
+        <ResponsiveContainer height={400} >
+          <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <CartesianGrid />
+            <XAxis type="category" dataKey="city" name="city" />
+            <YAxis
+              allowDecimals={false}
+              type="number"
+              dataKey="number"
+              name="number of events"
+            />
+            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+            <Scatter data={this.getData()} fill="#8884d8" />
+          </ScatterChart>
+        </ResponsiveContainer>
+        </div>
+        <EventList events={this.state.events} />
         <WelcomeScreen
           showWelcomeScreen={this.state.showWelcomeScreen}
           getAccessToken={() => {
