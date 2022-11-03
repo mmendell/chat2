@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+
 import "./App.css";
+import "./nprogress.css";
+
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
-import { getEvents, checkToken, extractLocations, getAccessToken } from "./api";
-import "./nprogress.css";
 import NumberOfEvents from "./numberOfEvents";
-import { Offline } from "./Alert";
 import WelcomeScreen from "./WelcomeScreen";
+import { Offline } from "./Alert";
+import EventGenre from "./EventGenre";
+import { getEvents, checkToken, extractLocations, getAccessToken } from "./api";
 import {
   ScatterChart,
   Scatter,
@@ -16,7 +19,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import EventGenre from "./EventGenre";
 
 class App extends Component {
   state = {
@@ -98,17 +100,14 @@ class App extends Component {
         <div className="offline-alert">
           <Offline text={this.state.offlineText} />
         </div>
-        <CitySearch
-          locations={locations}
-          updateEvents={this.updateEvents}
-        />
+        <CitySearch locations={locations} updateEvents={this.updateEvents} />
         <NumberOfEvents
           numberOfEvents={numberOfEvents}
           updateEvents={this.updateEvents}
         />
-   <EventGenre events={events} />
         <div className="data-vis-wrapper">
-       
+          <EventGenre events={events} />
+
           <ResponsiveContainer height={400}>
             <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
               <CartesianGrid />
@@ -120,13 +119,14 @@ class App extends Component {
                 name="number of events"
               />
               <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-              <Scatter data={this.getData()} fill="#8884d8" />
+              <Scatter data={this.getData()} fill="#9368B7" />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
-        <EventList events={events}
-        updateEvents={this.updateEvents}
-        numberOfEvents={this.state.numberOfEvents}
+        <EventList
+          events={events}
+          updateEvents={this.updateEvents}
+          numberOfEvents={this.state.numberOfEvents}
         />
         <WelcomeScreen
           showWelcomeScreen={this.state.showWelcomeScreen}
